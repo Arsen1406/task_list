@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.10'
 
 services:
   db:
@@ -9,7 +9,7 @@ services:
       - "5432:5432"
 
     env_file:
-      - book_library/.env
+      - task_list/.env
   web:
     build:
       context: ./
@@ -17,13 +17,13 @@ services:
     restart: always
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./book_library:/app
+      - ./task_list:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
     env_file:
-      - book_library/.env
+      - task_list/.env
 
   redis:
     image: redis:5-alpine
@@ -37,10 +37,10 @@ services:
       dockerfile: _docker/web/Dockerfile
     command: celery -A core worker -B -l info
     volumes:
-      - ./book_library:/app
+      - ./task_list:/app
 
     env_file:
-    - book_library/.env
+    - task_list/.env
     depends_on:
       - redis
 

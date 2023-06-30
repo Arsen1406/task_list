@@ -19,8 +19,8 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ['id']
-        verbose_name = 'Читатель'
-        verbose_name_plural = 'Читатели'
+        verbose_name = 'Исполнитель'
+        verbose_name_plural = 'Исполнители'
 
     def __str__(self):
         if self.first_name and self.last_name:

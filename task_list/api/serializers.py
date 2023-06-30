@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from tasks.models import Task
 
 User = get_user_model()
 
@@ -54,4 +55,20 @@ class UserSerializer(SignUpSerializer):
             'email',
             'first_name',
             'last_name',
+        )
+
+
+class TasksSerializers(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Task
+        fields = (
+            'id',
+            'number',
+            'status',
+            'user',
+            'create_date',
+            'update_date'
+
         )

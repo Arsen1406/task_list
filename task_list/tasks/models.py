@@ -1,16 +1,28 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.datetime_safe import datetime
+from django.utils.timezone import now
 
 User = get_user_model()
 
 
 class Task(models.Model):
-    number = models.IntegerField(
+
+    CREATE = 'create'
+    PROCESSING = 'processing'
+    ANSWER = 'answer'
+
+    id = models.AutoField(primary_key=True)
+    number = models.UUIDField(
+        default=uuid.uuid4(),
+        unique=True,
+        editable=False,
         verbose_name='Номер задачи'
     )
     status = models.CharField(
-        max_length=200,
+        default=CREATE,
+        max_length=20,
         verbose_name='Статус задачи'
     )
     user = models.ForeignKey(
@@ -21,10 +33,15 @@ class Task(models.Model):
         verbose_name='Исполнитель'
     )
     create_date = models.DateField(
-        default=datetime.now,
+        default=now,
         verbose_name='Дата создания'
     )
     update_date = models.DateField(
-        default=datetime.now,
+        default=now,
         verbose_name='Дата обновления'
     )
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Задача'
+        verbose_name_plural = 'Задачи'
