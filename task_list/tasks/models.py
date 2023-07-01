@@ -15,7 +15,7 @@ class Task(models.Model):
 
     id = models.AutoField(primary_key=True)
     number = models.UUIDField(
-        default=uuid.uuid4(),
+        default=uuid.uuid4,
         unique=True,
         editable=False,
         verbose_name='Номер задачи'
@@ -32,11 +32,11 @@ class Task(models.Model):
         related_name='task',
         verbose_name='Исполнитель'
     )
-    create_date = models.DateField(
+    create_date = models.DateTimeField(
         default=now,
         verbose_name='Дата создания'
     )
-    update_date = models.DateField(
+    update_date = models.DateTimeField(
         default=now,
         verbose_name='Дата обновления'
     )

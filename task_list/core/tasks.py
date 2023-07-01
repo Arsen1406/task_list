@@ -22,7 +22,6 @@ def delete_tasks():
 @app.task()
 def change_status_task(instance, status):
     logger.info('Starting the task processing process')
-    time.sleep(10)
     instance.status = status
     instance.update_date = now()
     instance.save()

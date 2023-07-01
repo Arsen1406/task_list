@@ -59,7 +59,7 @@ class UserSerializer(SignUpSerializer):
 
 
 class TasksSerializers(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Task
